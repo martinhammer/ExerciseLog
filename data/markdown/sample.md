@@ -1,5 +1,5 @@
 Date           | Exercise | Location
----------------|--------------------
+---------------|----------|---------
 Thu 2016-09-15 | Circuit Training class | Fancy gym
 Sun 2016-09-18 | Treadmill | Fancy gym
 Mon 2016-09-19 | Yoga class | Fancy gym
