@@ -2,3 +2,8 @@
 # Sublime Text specific
 *.sublime-project
 *.sublime-workspace
+
+# private files
+Martin's Exercise Log.json
+exercise.md
+exercise.noheader
