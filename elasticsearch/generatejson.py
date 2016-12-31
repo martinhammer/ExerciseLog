@@ -1,4 +1,5 @@
 # Import stuff
+import uuid
 from pyspark import SparkContext, SparkConf
 from pyspark.sql import SQLContext
 from pyspark.sql.types import *
@@ -13,13 +14,13 @@ lines = sc.textFile( "data/markdown/sample.md" ).filter( lambda line: not( line.
 # Split lines into attributes
 attrs = lines.map( lambda line: line.split( " | " ) )
 # Generate RDD 
-exerciseRDD = attrs.map( lambda attrs: ( attrs[0].split(" ")[0], attrs[0].split(" ")[1], attrs[1], attrs[2]) )
+exerciseRDD = attrs.map( lambda attrs: ( str( uuid.uuid4() ), attrs[0].split(" ")[0], attrs[0].split(" ")[1], attrs[1], attrs[2]) )
 
 # for e in exerciseRDD.take(10):
 # 	print e
 
 # Define the schema 
-schemaString = "DayOfWeek Date Description Location"
+schemaString = "UUID DayOfWeek Date Description Location"
 fields = [ StructField( fieldName, StringType(), True ) for fieldName in schemaString.split() ]
 schema = StructType( fields )
 
