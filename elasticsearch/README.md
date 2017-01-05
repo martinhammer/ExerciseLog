@@ -19,11 +19,13 @@ spark-submit elasticsearch/generatejson.py
 ```
 
 Step 2:
-Concatenate the output from Spark into a single file
+Concatenate the output from Spark into a single file and generate data to be inserted into Elastic Search.
 
 ```bash
 cat data/json/sample/* > data/json/sample.json
+awk -F\" -f elasticsearch/json2es.awk data/json/sample.json > data/elastic/sample.es
 ```
+
 Step 3:
 Start Elastic Search and Kibana
 
@@ -40,9 +42,15 @@ docker inspect kibana
 ```
 
 Step 4:
-Upload the data into Elastic. 
+Create the Elastic Search index and upload data into it (replace the IP address with the one for ElasticSearch from the previous step)
 
 _TBD_
+
+```bash
+cd data/elastic
+curl -s -XPOST http://172.19.0.2:9200/exerciselog/dailylog/_bulk --data-binary @sample.es
+cd -
+```
 
 Step 5:
 Kibana stuff.
