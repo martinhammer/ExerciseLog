@@ -2,7 +2,7 @@
   "paragraphs": [
     {
       "text": "%md\nThis is a sample exercise tracker and analyser.",
-      "dateUpdated": "2017-01-10T07:57:33+0400",
+      "dateUpdated": "2017-01-11T13:36:15+0400",
       "config": {
         "tableHide": false,
         "colWidth": 12,
@@ -31,15 +31,15 @@
         "msg": "<p>This is a sample exercise tracker and analyser.</p>\n"
       },
       "dateCreated": "2016-12-23T05:56:08+0400",
-      "dateStarted": "2017-01-10T07:57:33+0400",
-      "dateFinished": "2017-01-10T07:57:33+0400",
+      "dateStarted": "2017-01-11T13:36:15+0400",
+      "dateFinished": "2017-01-11T13:36:15+0400",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:9336"
+      "$$hashKey": "object:15232"
     },
     {
       "text": "%spark\n\nimport org.apache.commons.io.IOUtils\nimport java.net.URL\nimport java.nio.charset.Charset\n\nval exFile = sc.parallelize(\n    IOUtils.toString(\n        new URL( \"https://raw.githubusercontent.com/martinhammer/ExerciseLog/master/data/markdown/sample.md\" ),\n        Charset.forName( \"utf8\" )).split( \"\\n\" ) )\n\ncase class Exercise( DayOfWeek: String, Date: String, Description: String, Location: String )\n\nval exRecs = exFile\n    .filter( line => !( line.startsWith( \"Date\" ) || line.startsWith( \"---\" ) ) )\n    .map( line => line.split( \" \\\\| \" ) )\n    .map( attrs => ( Exercise( attrs(0).split(\" \")(0), attrs(0).split(\" \")(1), attrs(1), attrs(2) ) ) )\n    .toDF()\n\nexRecs.registerTempTable( \"exercise\" )",
-      "dateUpdated": "2017-01-10T07:57:33+0400",
+      "dateUpdated": "2017-01-11T13:36:15+0400",
       "config": {
         "lineNumbers": true,
         "tableHide": true,
@@ -66,18 +66,18 @@
       "result": {
         "code": "SUCCESS",
         "type": "TEXT",
-        "msg": "\nimport org.apache.commons.io.IOUtils\n\nimport java.net.URL\n\nimport java.nio.charset.Charset\n\nexFile: org.apache.spark.rdd.RDD[String] = ParallelCollectionRDD[265] at parallelize at <console>:36\n\ndefined class Exercise\n\nexRecs: org.apache.spark.sql.DataFrame = [DayOfWeek: string, Date: string ... 2 more fields]\n\nwarning: there was one deprecation warning; re-run with -deprecation for details\n"
+        "msg": "\nimport org.apache.commons.io.IOUtils\n\nimport java.net.URL\n\nimport java.nio.charset.Charset\n\nexFile: org.apache.spark.rdd.RDD[String] = ParallelCollectionRDD[79] at parallelize at <console>:30\n\ndefined class Exercise\n\nexRecs: org.apache.spark.sql.DataFrame = [DayOfWeek: string, Date: string ... 2 more fields]\n\nwarning: there was one deprecation warning; re-run with -deprecation for details\n"
       },
       "dateCreated": "2016-12-23T05:56:08+0400",
-      "dateStarted": "2017-01-10T07:57:33+0400",
-      "dateFinished": "2017-01-10T07:57:35+0400",
+      "dateStarted": "2017-01-11T13:36:15+0400",
+      "dateFinished": "2017-01-11T13:36:18+0400",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:9337"
+      "$$hashKey": "object:15233"
     },
     {
-      "text": "%spark\n\nval query = sql( \"select max(Date), min(Date), count(*) from exercise\" ).take(1)(0)\n\nval maxDate = query(0).toString()\nval minDate = query(1).toString()\nval exCount = query(2).toString()\n\nz.angularBind( \"maxDate\", maxDate )\nz.angularBind( \"minDate\", minDate )\nz.angularBind( \"exCount\", exCount )",
-      "dateUpdated": "2017-01-10T07:57:33+0400",
+      "text": "%spark\n\nz.angularUnbind( \"maxDate\" )\nz.angularUnbind( \"minDate\" )\nz.angularUnbind( \"exCount\" )\n\nval query = sql( \"select max(Date), min(Date), count(*) from exercise\" ).take(1)(0)\n\nval maxDate = query(0).toString()\nval minDate = query(1).toString()\nval exCount = query(2).toString()\n\nz.angularBind( \"maxDate\", maxDate )\nz.angularBind( \"minDate\", minDate )\nz.angularBind( \"exCount\", exCount )",
+      "dateUpdated": "2017-01-11T13:36:15+0400",
       "config": {
         "colWidth": 12,
         "graph": {
@@ -106,14 +106,15 @@
         "msg": "\nquery: org.apache.spark.sql.Row = [2016-12-22,2016-09-15,53]\n\nmaxDate: String = 2016-12-22\n\nminDate: String = 2016-09-15\n\nexCount: String = 53\n"
       },
       "dateCreated": "2017-01-10T07:51:12+0400",
-      "dateStarted": "2017-01-10T07:57:34+0400",
-      "dateFinished": "2017-01-10T07:57:36+0400",
+      "dateStarted": "2017-01-11T13:36:15+0400",
+      "dateFinished": "2017-01-11T13:36:20+0400",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:9338",
-      "focus": true
+      "$$hashKey": "object:15234"
     },
     {
+      "text": "%angular\n<div>I exercised <b>{{exCount}} times</b> between <b>{{minDate}}</b> and <b>{{maxDate}}</b>.</div>",
+      "dateUpdated": "2017-01-11T13:36:15+0400",
       "config": {
         "colWidth": 12,
         "graph": {
@@ -135,25 +136,22 @@
       },
       "jobName": "paragraph_1484020358795_1543825731",
       "id": "20170110-075238_168776810",
-      "dateCreated": "2017-01-10T07:52:38+0400",
-      "status": "FINISHED",
-      "progressUpdateIntervalMs": 500,
-      "focus": true,
-      "$$hashKey": "object:9917",
-      "text": "%angular\n<div>I exercised <b>{{exCount}} times</b> between <b>{{minDate}}</b> and <b>{{maxDate}}</b>.</div>",
-      "dateUpdated": "2017-01-10T07:57:34+0400",
-      "dateFinished": "2017-01-10T07:57:34+0400",
-      "dateStarted": "2017-01-10T07:57:34+0400",
       "result": {
         "code": "SUCCESS",
         "type": "ANGULAR",
         "msg": "<div>I exercised <b>{{exCount}} times</b> between <b>{{minDate}}</b> and <b>{{maxDate}}</b>.</div>"
-      }
+      },
+      "dateCreated": "2017-01-10T07:52:38+0400",
+      "dateStarted": "2017-01-11T13:36:15+0400",
+      "dateFinished": "2017-01-11T13:36:15+0400",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:15235"
     },
     {
       "title": "Last 10 exercise activities",
       "text": "%sql\n\nselect * from exercise \norder by Date desc\nlimit 10\n",
-      "dateUpdated": "2017-01-10T07:57:34+0400",
+      "dateUpdated": "2017-01-11T13:36:15+0400",
       "config": {
         "colWidth": 12,
         "editorMode": "ace/mode/sql",
@@ -443,16 +441,16 @@
         ]
       },
       "dateCreated": "2016-12-23T05:56:08+0400",
-      "dateStarted": "2017-01-10T07:57:35+0400",
-      "dateFinished": "2017-01-10T07:57:36+0400",
+      "dateStarted": "2017-01-11T13:36:18+0400",
+      "dateFinished": "2017-01-11T13:36:20+0400",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:9339"
+      "$$hashKey": "object:15236"
     },
     {
       "title": "Exercise by day of week",
       "text": "%sql\n\nselect DayOfWeek, count(*) as Count\nfrom exercise\ngroup by DayOfWeek\norder by \n    case DayOfWeek \n        when 'Sun' then 1\n        when 'Mon' then 2\n        when 'Tue' then 3\n        when 'Wed' then 4\n        when 'Thu' then 5\n        when 'Fri' then 6\n        when 'Sat' then 7\n    end\n",
-      "dateUpdated": "2017-01-10T07:57:34+0400",
+      "dateUpdated": "2017-01-11T13:36:15+0400",
       "config": {
         "colWidth": 4,
         "editorMode": "ace/mode/sql",
@@ -602,16 +600,16 @@
         ]
       },
       "dateCreated": "2016-12-23T05:56:08+0400",
-      "dateStarted": "2017-01-10T07:57:36+0400",
-      "dateFinished": "2017-01-10T07:57:37+0400",
+      "dateStarted": "2017-01-11T13:36:20+0400",
+      "dateFinished": "2017-01-11T13:36:21+0400",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:9340"
+      "$$hashKey": "object:15237"
     },
     {
       "title": "Exercise by location",
       "text": "%sql\n\nselect Location, count(*) as Count\nfrom exercise\ngroup by Location\n",
-      "dateUpdated": "2017-01-10T07:57:34+0400",
+      "dateUpdated": "2017-01-11T13:36:15+0400",
       "config": {
         "colWidth": 4,
         "editorMode": "ace/mode/sql",
@@ -737,16 +735,16 @@
         ]
       },
       "dateCreated": "2016-12-23T05:56:08+0400",
-      "dateStarted": "2017-01-10T07:57:37+0400",
-      "dateFinished": "2017-01-10T07:57:37+0400",
+      "dateStarted": "2017-01-11T13:36:21+0400",
+      "dateFinished": "2017-01-11T13:36:21+0400",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:9341"
+      "$$hashKey": "object:15238"
     },
     {
       "title": "Monthly trend",
       "text": "%sql\n\nselect substr( Date, 1, 7 ) as YearMonth, count(*) as Count\nfrom exercise\ngroup by substr( Date, 1, 7 )\norder by substr( Date, 1, 7 ) desc\nlimit 6\n",
-      "dateUpdated": "2017-01-10T07:57:34+0400",
+      "dateUpdated": "2017-01-11T13:36:15+0400",
       "config": {
         "colWidth": 4,
         "editorMode": "ace/mode/sql",
@@ -861,15 +859,15 @@
         ]
       },
       "dateCreated": "2016-12-23T05:56:08+0400",
-      "dateStarted": "2017-01-10T07:57:37+0400",
-      "dateFinished": "2017-01-10T07:57:38+0400",
+      "dateStarted": "2017-01-11T13:36:21+0400",
+      "dateFinished": "2017-01-11T13:36:22+0400",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:9342"
+      "$$hashKey": "object:15239"
     },
     {
       "text": "",
-      "dateUpdated": "2017-01-10T07:57:34+0400",
+      "dateUpdated": "2017-01-11T13:36:15+0400",
       "config": {
         "colWidth": 12,
         "editorMode": "ace/mode/scala",
@@ -896,11 +894,11 @@
         "msg": ""
       },
       "dateCreated": "2016-12-23T05:56:08+0400",
-      "dateStarted": "2017-01-10T07:57:38+0400",
-      "dateFinished": "2017-01-10T07:57:38+0400",
+      "dateStarted": "2017-01-11T13:36:21+0400",
+      "dateFinished": "2017-01-11T13:36:22+0400",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:9343"
+      "$$hashKey": "object:15240"
     }
   ],
   "name": "Exercise Log",
