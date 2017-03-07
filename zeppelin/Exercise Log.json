@@ -2,945 +2,557 @@
   "paragraphs": [
     {
       "text": "%md\nThis is a sample exercise tracker and analyser.",
-      "dateUpdated": "2017-01-11T13:36:15+0400",
+      "user": "anonymous",
+      "dateUpdated": "2017-03-07T11:40:29+0400",
       "config": {
         "tableHide": false,
         "colWidth": 12,
         "editorMode": "ace/mode/markdown",
         "editorHide": true,
-        "graph": {
-          "mode": "table",
-          "height": 300,
-          "optionOpen": false,
-          "keys": [],
-          "values": [],
-          "groups": [],
-          "scatter": {}
-        },
-        "enabled": true
+        "results": [
+          {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "keys": [],
+              "values": [],
+              "groups": [],
+              "scatter": {}
+            }
+          }
+        ],
+        "enabled": true,
+        "editorSetting": {}
       },
       "settings": {
         "params": {},
         "forms": {}
       },
-      "jobName": "paragraph_1482501368116_1233402358",
-      "id": "20161222-165432_362810490",
-      "result": {
+      "results": {
         "code": "SUCCESS",
-        "type": "HTML",
-        "msg": "<p>This is a sample exercise tracker and analyser.</p>\n"
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "<div class=\"markdown-body\">\n<p>This is a sample exercise tracker and analyser.</p>\n</div>"
+          }
+        ]
       },
-      "dateCreated": "2016-12-23T05:56:08+0400",
-      "dateStarted": "2017-01-11T13:36:15+0400",
-      "dateFinished": "2017-01-11T13:36:15+0400",
+      "apps": [],
+      "jobName": "paragraph_1488447972136_1597224598",
+      "id": "20161222-165432_362810490",
+      "dateCreated": "2017-03-02T13:46:12+0400",
+      "dateStarted": "2017-03-07T11:40:29+0400",
+      "dateFinished": "2017-03-07T11:40:29+0400",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:15232"
+      "focus": true,
+      "$$hashKey": "object:12345"
     },
     {
       "text": "%spark\n\nimport org.apache.commons.io.IOUtils\nimport java.net.URL\nimport java.nio.charset.Charset\n\nval exFile = sc.parallelize(\n    IOUtils.toString(\n        new URL( \"https://raw.githubusercontent.com/martinhammer/ExerciseLog/master/data/markdown/sample.md\" ),\n        Charset.forName( \"utf8\" )).split( \"\\n\" ) )\n\ncase class Exercise( DayOfWeek: String, Date: String, Description: String, Location: String )\n\nval exRecs = exFile\n    .filter( line => !( line.startsWith( \"Date\" ) || line.startsWith( \"---\" ) ) )\n    .map( line => line.split( \" \\\\| \" ) )\n    .map( attrs => ( Exercise( attrs(0).split(\" \")(0), attrs(0).split(\" \")(1), attrs(1), attrs(2) ) ) )\n    .toDF()\n\nexRecs.registerTempTable( \"exercise\" )",
-      "dateUpdated": "2017-01-11T13:36:15+0400",
+      "user": "anonymous",
+      "dateUpdated": "2017-03-07T11:40:29+0400",
       "config": {
         "lineNumbers": true,
         "tableHide": true,
         "colWidth": 12,
         "editorMode": "ace/mode/scala",
         "editorHide": false,
-        "graph": {
-          "mode": "table",
-          "height": 300,
-          "optionOpen": false,
-          "keys": [],
-          "values": [],
-          "groups": [],
-          "scatter": {}
-        },
-        "enabled": true
+        "results": [
+          {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "keys": [],
+              "values": [],
+              "groups": [],
+              "scatter": {}
+            }
+          }
+        ],
+        "enabled": true,
+        "editorSetting": {
+          "language": "scala"
+        }
       },
       "settings": {
         "params": {},
         "forms": {}
       },
-      "jobName": "paragraph_1482501368117_1233017609",
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nimport org.apache.commons.io.IOUtils\n\nimport java.net.URL\n\nimport java.nio.charset.Charset\n\nexFile: org.apache.spark.rdd.RDD[String] = ParallelCollectionRDD[158] at parallelize at <console>:30\n\ndefined class Exercise\n\nexRecs: org.apache.spark.sql.DataFrame = [DayOfWeek: string, Date: string ... 2 more fields]\n\nwarning: there was one deprecation warning; re-run with -deprecation for details\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1488447972139_1597609347",
       "id": "20161222-170227_452287656",
-      "result": {
-        "code": "SUCCESS",
-        "type": "TEXT",
-        "msg": "\nimport org.apache.commons.io.IOUtils\n\nimport java.net.URL\n\nimport java.nio.charset.Charset\n\nexFile: org.apache.spark.rdd.RDD[String] = ParallelCollectionRDD[79] at parallelize at <console>:30\n\ndefined class Exercise\n\nexRecs: org.apache.spark.sql.DataFrame = [DayOfWeek: string, Date: string ... 2 more fields]\n\nwarning: there was one deprecation warning; re-run with -deprecation for details\n"
-      },
-      "dateCreated": "2016-12-23T05:56:08+0400",
-      "dateStarted": "2017-01-11T13:36:15+0400",
-      "dateFinished": "2017-01-11T13:36:18+0400",
+      "dateCreated": "2017-03-02T13:46:12+0400",
+      "dateStarted": "2017-03-07T11:40:29+0400",
+      "dateFinished": "2017-03-07T11:40:40+0400",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:15233"
+      "$$hashKey": "object:12346"
     },
     {
-      "text": "%spark\n\nz.angularUnbind( \"maxDate\" )\nz.angularUnbind( \"minDate\" )\nz.angularUnbind( \"exCount\" )\n\nval query = sql( \"select max(Date), min(Date), count(*) from exercise\" ).take(1)(0)\n\nval maxDate = query(0).toString()\nval minDate = query(1).toString()\nval exCount = query(2).toString()\n\nz.angularBind( \"maxDate\", maxDate )\nz.angularBind( \"minDate\", minDate )\nz.angularBind( \"exCount\", exCount )",
-      "dateUpdated": "2017-01-11T13:36:15+0400",
+      "text": "%spark\n\nz.angularUnbind( \"maxDate\" )\nz.angularUnbind( \"minDate\" )\nz.angularUnbind( \"exCount\" )\nz.angularUnbind( \"exAvgDays\" )\n\nval query = sql( \"select max(Date), min(Date), count(*), round( datediff( max(Date), min(Date) ) / count(*), 1 ) from exercise\" ).take(1)(0)\n\nval maxDate = query(0).toString()\nval minDate = query(1).toString()\nval exCount = query(2).toString()\nval exAvgDays = query(3).toString()\n\nz.angularBind( \"maxDate\", maxDate )\nz.angularBind( \"minDate\", minDate )\nz.angularBind( \"exCount\", exCount )\nz.angularBind( \"exAvgDays\", exAvgDays )",
+      "user": "anonymous",
+      "dateUpdated": "2017-03-07T11:40:29+0400",
       "config": {
-        "colWidth": 12,
-        "graph": {
-          "mode": "table",
-          "height": 300,
-          "optionOpen": false,
-          "keys": [],
-          "values": [],
-          "groups": [],
-          "scatter": {}
-        },
-        "enabled": true,
-        "editorMode": "ace/mode/scala",
+        "lineNumbers": true,
         "tableHide": true,
-        "lineNumbers": true
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "results": [
+          {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "keys": [],
+              "values": [],
+              "groups": [],
+              "scatter": {}
+            }
+          }
+        ],
+        "enabled": true,
+        "editorSetting": {
+          "language": "scala"
+        }
       },
       "settings": {
         "params": {},
         "forms": {}
       },
-      "jobName": "paragraph_1484020272340_-1583736782",
-      "id": "20170110-075112_2076757744",
-      "result": {
+      "results": {
         "code": "SUCCESS",
-        "type": "TEXT",
-        "msg": "\nquery: org.apache.spark.sql.Row = [2016-12-22,2016-09-15,53]\n\nmaxDate: String = 2016-12-22\n\nminDate: String = 2016-09-15\n\nexCount: String = 53\n"
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\nquery: org.apache.spark.sql.Row = [2016-12-22,2016-09-15,53,1.8]\n\nmaxDate: String = 2016-12-22\n\nminDate: String = 2016-09-15\n\nexCount: String = 53\n\nexAvgDays: String = 1.8\n"
+          }
+        ]
       },
-      "dateCreated": "2017-01-10T07:51:12+0400",
-      "dateStarted": "2017-01-11T13:36:15+0400",
-      "dateFinished": "2017-01-11T13:36:20+0400",
+      "apps": [],
+      "jobName": "paragraph_1488447972140_1595685602",
+      "id": "20170110-075112_2076757744",
+      "dateCreated": "2017-03-02T13:46:12+0400",
+      "dateStarted": "2017-03-07T11:40:29+0400",
+      "dateFinished": "2017-03-07T11:40:42+0400",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:15234"
+      "$$hashKey": "object:12347"
     },
     {
-      "text": "%angular\n<div>I exercised <b>{{exCount}} times</b> between <b>{{minDate}}</b> and <b>{{maxDate}}</b>.</div>",
-      "dateUpdated": "2017-01-11T13:36:15+0400",
+      "text": "%angular\n<div>I exercised <b>{{exCount}} times</b> between <b>{{minDate}}</b> and <b>{{maxDate}}</b>.<br>On average, I exercised once every <b>{{exAvgDays}}</b> days.</div>",
+      "user": "anonymous",
+      "dateUpdated": "2017-03-07T11:40:29+0400",
       "config": {
         "colWidth": 12,
-        "graph": {
-          "mode": "table",
-          "height": 300,
-          "optionOpen": false,
-          "keys": [],
-          "values": [],
-          "groups": [],
-          "scatter": {}
-        },
+        "editorMode": "ace/mode/undefined",
+        "editorHide": true,
+        "results": [
+          {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "keys": [],
+              "values": [],
+              "groups": [],
+              "scatter": {}
+            }
+          }
+        ],
         "enabled": true,
-        "editorMode": "ace/mode/scala",
-        "editorHide": true
+        "editorSetting": {
+          "editOnDblClick": true
+        }
       },
       "settings": {
         "params": {},
         "forms": {}
       },
-      "jobName": "paragraph_1484020358795_1543825731",
-      "id": "20170110-075238_168776810",
-      "result": {
+      "results": {
         "code": "SUCCESS",
-        "type": "ANGULAR",
-        "msg": "<div>I exercised <b>{{exCount}} times</b> between <b>{{minDate}}</b> and <b>{{maxDate}}</b>.</div>"
+        "msg": [
+          {
+            "type": "ANGULAR",
+            "data": "<div>I exercised <b>{{exCount}} times</b> between <b>{{minDate}}</b> and <b>{{maxDate}}</b>.<br>On average, I exercised once every <b>{{exAvgDays}}</b> days.</div>"
+          }
+        ]
       },
-      "dateCreated": "2017-01-10T07:52:38+0400",
-      "dateStarted": "2017-01-11T13:36:15+0400",
-      "dateFinished": "2017-01-11T13:36:15+0400",
+      "apps": [],
+      "jobName": "paragraph_1488447972141_1595300853",
+      "id": "20170110-075238_168776810",
+      "dateCreated": "2017-03-02T13:46:12+0400",
+      "dateStarted": "2017-03-07T11:40:29+0400",
+      "dateFinished": "2017-03-07T11:40:29+0400",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:15235"
+      "$$hashKey": "object:12348"
     },
     {
       "title": "Last 10 exercise activities",
       "text": "%sql\n\nselect * from exercise \norder by Date desc\nlimit 10\n",
-      "dateUpdated": "2017-01-11T13:36:15+0400",
+      "user": "anonymous",
+      "dateUpdated": "2017-03-07T11:40:29+0400",
       "config": {
         "colWidth": 12,
         "editorMode": "ace/mode/sql",
         "title": true,
-        "graph": {
-          "mode": "table",
-          "height": 300,
-          "optionOpen": true,
-          "keys": [
-            {
-              "name": "DayOfWeek",
-              "index": 0,
-              "aggr": "sum"
-            }
-          ],
-          "values": [
-            {
-              "name": "Date",
-              "index": 1,
-              "aggr": "sum"
-            }
-          ],
-          "groups": [],
-          "scatter": {
-            "xAxis": {
-              "name": "DayOfWeek",
-              "index": 0,
-              "aggr": "sum"
-            },
-            "yAxis": {
-              "name": "Date",
-              "index": 1,
-              "aggr": "sum"
+        "results": [
+          {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": true,
+              "keys": [
+                {
+                  "name": "DayOfWeek",
+                  "index": 0,
+                  "aggr": "sum"
+                }
+              ],
+              "values": [
+                {
+                  "name": "Date",
+                  "index": 1,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "scatter": {
+                "xAxis": {
+                  "name": "DayOfWeek",
+                  "index": 0,
+                  "aggr": "sum"
+                },
+                "yAxis": {
+                  "name": "Date",
+                  "index": 1,
+                  "aggr": "sum"
+                }
+              }
             }
           }
-        },
-        "enabled": true
+        ],
+        "enabled": true,
+        "editorSetting": {
+          "language": "sql"
+        }
       },
       "settings": {
         "params": {},
         "forms": {}
       },
-      "jobName": "paragraph_1482501368117_1233017609",
-      "id": "20161222-204352_183098567",
-      "result": {
+      "results": {
         "code": "SUCCESS",
-        "type": "TABLE",
-        "msg": "DayOfWeek\tDate\tDescription\tLocation\nThu\t2016-12-22\tCircuit Training class\tFancy gym\nTue\t2016-12-20\tTennis\tHome court\nMon\t2016-12-19\tPilates class\tFancy gym\nSat\t2016-12-17\tJog\tPark\nTue\t2016-12-13\tYoga class\tFancy gym\nMon\t2016-12-12\tTreadmill\tFancy gym\nFri\t2016-12-09\t100 sit ups\tBeach\nWed\t2016-12-07\tTreadmill\tFancy gym\nMon\t2016-12-05\tPilates class\tFancy gym\nSat\t2016-12-03\tJog\tPark\n",
-        "comment": "",
-        "msgTable": [
-          [
-            {
-              "key": "Date",
-              "value": "Thu"
-            },
-            {
-              "key": "Date",
-              "value": "2016-12-22"
-            },
-            {
-              "key": "Date",
-              "value": "Circuit Training class"
-            },
-            {
-              "key": "Date",
-              "value": "Fancy gym"
-            }
-          ],
-          [
-            {
-              "key": "Description",
-              "value": "Tue"
-            },
-            {
-              "key": "Description",
-              "value": "2016-12-20"
-            },
-            {
-              "key": "Description",
-              "value": "Tennis"
-            },
-            {
-              "key": "Description",
-              "value": "Home court"
-            }
-          ],
-          [
-            {
-              "key": "Location",
-              "value": "Mon"
-            },
-            {
-              "key": "Location",
-              "value": "2016-12-19"
-            },
-            {
-              "key": "Location",
-              "value": "Pilates class"
-            },
-            {
-              "key": "Location",
-              "value": "Fancy gym"
-            }
-          ],
-          [
-            {
-              "value": "Sat"
-            },
-            {
-              "value": "2016-12-17"
-            },
-            {
-              "value": "Jog"
-            },
-            {
-              "value": "Park"
-            }
-          ],
-          [
-            {
-              "value": "Tue"
-            },
-            {
-              "value": "2016-12-13"
-            },
-            {
-              "value": "Yoga class"
-            },
-            {
-              "value": "Fancy gym"
-            }
-          ],
-          [
-            {
-              "value": "Mon"
-            },
-            {
-              "value": "2016-12-12"
-            },
-            {
-              "value": "Treadmill"
-            },
-            {
-              "value": "Fancy gym"
-            }
-          ],
-          [
-            {
-              "value": "Fri"
-            },
-            {
-              "value": "2016-12-09"
-            },
-            {
-              "value": "100 sit ups"
-            },
-            {
-              "value": "Beach"
-            }
-          ],
-          [
-            {
-              "value": "Wed"
-            },
-            {
-              "value": "2016-12-07"
-            },
-            {
-              "value": "Treadmill"
-            },
-            {
-              "value": "Fancy gym"
-            }
-          ],
-          [
-            {
-              "value": "Mon"
-            },
-            {
-              "value": "2016-12-05"
-            },
-            {
-              "value": "Pilates class"
-            },
-            {
-              "value": "Fancy gym"
-            }
-          ],
-          [
-            {
-              "value": "Sat"
-            },
-            {
-              "value": "2016-12-03"
-            },
-            {
-              "value": "Jog"
-            },
-            {
-              "value": "Park"
-            }
-          ]
-        ],
-        "columnNames": [
+        "msg": [
           {
-            "name": "DayOfWeek",
-            "index": 0,
-            "aggr": "sum"
-          },
-          {
-            "name": "Date",
-            "index": 1,
-            "aggr": "sum"
-          },
-          {
-            "name": "Description",
-            "index": 2,
-            "aggr": "sum"
-          },
-          {
-            "name": "Location",
-            "index": 3,
-            "aggr": "sum"
+            "type": "TABLE",
+            "data": "DayOfWeek\tDate\tDescription\tLocation\nThu\t2016-12-22\tCircuit Training class\tFancy gym\nTue\t2016-12-20\tTennis\tHome court\nMon\t2016-12-19\tPilates class\tFancy gym\nSat\t2016-12-17\tJog\tPark\nTue\t2016-12-13\tYoga class\tFancy gym\nMon\t2016-12-12\tTreadmill\tFancy gym\nFri\t2016-12-09\t100 sit ups\tBeach\nWed\t2016-12-07\tTreadmill\tFancy gym\nMon\t2016-12-05\tPilates class\tFancy gym\nSat\t2016-12-03\tJog\tPark\n"
           }
-        ],
-        "rows": [
-          [
-            "Thu",
-            "2016-12-22",
-            "Circuit Training class",
-            "Fancy gym"
-          ],
-          [
-            "Tue",
-            "2016-12-20",
-            "Tennis",
-            "Home court"
-          ],
-          [
-            "Mon",
-            "2016-12-19",
-            "Pilates class",
-            "Fancy gym"
-          ],
-          [
-            "Sat",
-            "2016-12-17",
-            "Jog",
-            "Park"
-          ],
-          [
-            "Tue",
-            "2016-12-13",
-            "Yoga class",
-            "Fancy gym"
-          ],
-          [
-            "Mon",
-            "2016-12-12",
-            "Treadmill",
-            "Fancy gym"
-          ],
-          [
-            "Fri",
-            "2016-12-09",
-            "100 sit ups",
-            "Beach"
-          ],
-          [
-            "Wed",
-            "2016-12-07",
-            "Treadmill",
-            "Fancy gym"
-          ],
-          [
-            "Mon",
-            "2016-12-05",
-            "Pilates class",
-            "Fancy gym"
-          ],
-          [
-            "Sat",
-            "2016-12-03",
-            "Jog",
-            "Park"
-          ]
         ]
       },
-      "dateCreated": "2016-12-23T05:56:08+0400",
-      "dateStarted": "2017-01-11T13:36:18+0400",
-      "dateFinished": "2017-01-11T13:36:20+0400",
+      "apps": [],
+      "jobName": "paragraph_1488447972141_1595300853",
+      "id": "20161222-204352_183098567",
+      "dateCreated": "2017-03-02T13:46:12+0400",
+      "dateStarted": "2017-03-07T11:40:40+0400",
+      "dateFinished": "2017-03-07T11:40:42+0400",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:15236"
+      "$$hashKey": "object:12349"
     },
     {
       "title": "Exercise by day of week",
       "text": "%sql\n\nselect DayOfWeek, count(*) as Count\nfrom exercise\ngroup by DayOfWeek\norder by \n    case DayOfWeek \n        when 'Sun' then 1\n        when 'Mon' then 2\n        when 'Tue' then 3\n        when 'Wed' then 4\n        when 'Thu' then 5\n        when 'Fri' then 6\n        when 'Sat' then 7\n    end\n",
-      "dateUpdated": "2017-01-11T13:36:15+0400",
+      "user": "anonymous",
+      "dateUpdated": "2017-03-07T11:40:29+0400",
       "config": {
         "colWidth": 4,
         "editorMode": "ace/mode/sql",
         "editorHide": false,
         "title": true,
-        "graph": {
-          "mode": "multiBarChart",
-          "height": 300,
-          "optionOpen": false,
-          "keys": [
-            {
-              "name": "DayOfWeek",
-              "index": 0,
-              "aggr": "sum"
-            }
-          ],
-          "values": [
-            {
-              "name": "Count",
-              "index": 1,
-              "aggr": "sum"
-            }
-          ],
-          "groups": [],
-          "scatter": {
-            "xAxis": {
-              "name": "DayOfWeek",
-              "index": 0,
-              "aggr": "sum"
+        "results": [
+          {
+            "graph": {
+              "mode": "multiBarChart",
+              "height": 300,
+              "optionOpen": false,
+              "keys": [
+                {
+                  "name": "DayOfWeek",
+                  "index": 0,
+                  "aggr": "sum"
+                }
+              ],
+              "values": [
+                {
+                  "name": "Count",
+                  "index": 1,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "scatter": {
+                "xAxis": {
+                  "name": "DayOfWeek",
+                  "index": 0,
+                  "aggr": "sum"
+                }
+              }
             }
           }
-        },
-        "enabled": true
+        ],
+        "enabled": true,
+        "editorSetting": {
+          "language": "sql"
+        }
       },
       "settings": {
         "params": {},
         "forms": {}
       },
-      "jobName": "paragraph_1482501368117_1233017609",
-      "id": "20161222-203439_1338792402",
-      "result": {
+      "results": {
         "code": "SUCCESS",
-        "type": "TABLE",
-        "msg": "DayOfWeek\tCount\nSun\t3\nMon\t13\nTue\t15\nWed\t1\nThu\t11\nFri\t4\nSat\t6\n",
-        "comment": "",
-        "msgTable": [
-          [
-            {
-              "key": "Count",
-              "value": "Sun"
-            },
-            {
-              "key": "Count",
-              "value": "3"
-            }
-          ],
-          [
-            {
-              "value": "Mon"
-            },
-            {
-              "value": "13"
-            }
-          ],
-          [
-            {
-              "value": "Tue"
-            },
-            {
-              "value": "15"
-            }
-          ],
-          [
-            {
-              "value": "Wed"
-            },
-            {
-              "value": "1"
-            }
-          ],
-          [
-            {
-              "value": "Thu"
-            },
-            {
-              "value": "11"
-            }
-          ],
-          [
-            {
-              "value": "Fri"
-            },
-            {
-              "value": "4"
-            }
-          ],
-          [
-            {
-              "value": "Sat"
-            },
-            {
-              "value": "6"
-            }
-          ]
-        ],
-        "columnNames": [
+        "msg": [
           {
-            "name": "DayOfWeek",
-            "index": 0,
-            "aggr": "sum"
-          },
-          {
-            "name": "Count",
-            "index": 1,
-            "aggr": "sum"
+            "type": "TABLE",
+            "data": "DayOfWeek\tCount\nSun\t3\nMon\t13\nTue\t15\nWed\t1\nThu\t11\nFri\t4\nSat\t6\n"
           }
-        ],
-        "rows": [
-          [
-            "Sun",
-            "3"
-          ],
-          [
-            "Mon",
-            "13"
-          ],
-          [
-            "Tue",
-            "15"
-          ],
-          [
-            "Wed",
-            "1"
-          ],
-          [
-            "Thu",
-            "11"
-          ],
-          [
-            "Fri",
-            "4"
-          ],
-          [
-            "Sat",
-            "6"
-          ]
         ]
       },
-      "dateCreated": "2016-12-23T05:56:08+0400",
-      "dateStarted": "2017-01-11T13:36:20+0400",
-      "dateFinished": "2017-01-11T13:36:21+0400",
+      "apps": [],
+      "jobName": "paragraph_1488447972143_1596070351",
+      "id": "20161222-203439_1338792402",
+      "dateCreated": "2017-03-02T13:46:12+0400",
+      "dateStarted": "2017-03-07T11:40:42+0400",
+      "dateFinished": "2017-03-07T11:40:43+0400",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:15237"
+      "$$hashKey": "object:12350"
     },
     {
       "title": "Exercise by location",
       "text": "%sql\n\nselect Location, count(*) as Count\nfrom exercise\ngroup by Location\n",
-      "dateUpdated": "2017-01-11T13:36:15+0400",
+      "user": "anonymous",
+      "dateUpdated": "2017-03-07T11:40:29+0400",
       "config": {
         "colWidth": 4,
         "editorMode": "ace/mode/sql",
         "editorHide": false,
         "title": true,
-        "graph": {
-          "mode": "pieChart",
-          "height": 300,
-          "optionOpen": false,
-          "keys": [
-            {
-              "name": "Location",
-              "index": 0,
-              "aggr": "sum"
-            }
-          ],
-          "values": [
-            {
-              "name": "Count",
-              "index": 1,
-              "aggr": "sum"
-            }
-          ],
-          "groups": [],
-          "scatter": {
-            "xAxis": {
-              "name": "Location",
-              "index": 0,
-              "aggr": "sum"
+        "results": [
+          {
+            "graph": {
+              "mode": "pieChart",
+              "height": 300,
+              "optionOpen": false,
+              "keys": [
+                {
+                  "name": "Location",
+                  "index": 0,
+                  "aggr": "sum"
+                }
+              ],
+              "values": [
+                {
+                  "name": "Count",
+                  "index": 1,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "scatter": {
+                "xAxis": {
+                  "name": "Location",
+                  "index": 0,
+                  "aggr": "sum"
+                }
+              }
             }
           }
-        },
-        "enabled": true
+        ],
+        "enabled": true,
+        "editorSetting": {
+          "language": "sql"
+        }
       },
       "settings": {
         "params": {},
         "forms": {}
       },
-      "jobName": "paragraph_1482501368117_1233017609",
-      "id": "20161222-214242_1868607137",
-      "result": {
+      "results": {
         "code": "SUCCESS",
-        "type": "TABLE",
-        "msg": "Location\tCount\nCountry club\t4\nBeach\t3\nFancy gym\t31\nHome court\t9\nPark\t6\n",
-        "comment": "",
-        "msgTable": [
-          [
-            {
-              "key": "Count",
-              "value": "Country club"
-            },
-            {
-              "key": "Count",
-              "value": "4"
-            }
-          ],
-          [
-            {
-              "value": "Beach"
-            },
-            {
-              "value": "3"
-            }
-          ],
-          [
-            {
-              "value": "Fancy gym"
-            },
-            {
-              "value": "31"
-            }
-          ],
-          [
-            {
-              "value": "Home court"
-            },
-            {
-              "value": "9"
-            }
-          ],
-          [
-            {
-              "value": "Park"
-            },
-            {
-              "value": "6"
-            }
-          ]
-        ],
-        "columnNames": [
+        "msg": [
           {
-            "name": "Location",
-            "index": 0,
-            "aggr": "sum"
-          },
-          {
-            "name": "Count",
-            "index": 1,
-            "aggr": "sum"
+            "type": "TABLE",
+            "data": "Location\tCount\nCountry club\t4\nBeach\t3\nFancy gym\t31\nHome court\t9\nPark\t6\n"
           }
-        ],
-        "rows": [
-          [
-            "Country club",
-            "4"
-          ],
-          [
-            "Beach",
-            "3"
-          ],
-          [
-            "Fancy gym",
-            "31"
-          ],
-          [
-            "Home court",
-            "9"
-          ],
-          [
-            "Park",
-            "6"
-          ]
         ]
       },
-      "dateCreated": "2016-12-23T05:56:08+0400",
-      "dateStarted": "2017-01-11T13:36:21+0400",
-      "dateFinished": "2017-01-11T13:36:21+0400",
+      "apps": [],
+      "jobName": "paragraph_1488447972144_1606458572",
+      "id": "20161222-214242_1868607137",
+      "dateCreated": "2017-03-02T13:46:12+0400",
+      "dateStarted": "2017-03-07T11:40:43+0400",
+      "dateFinished": "2017-03-07T11:40:44+0400",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:15238"
+      "$$hashKey": "object:12351"
     },
     {
       "title": "Monthly trend",
       "text": "%sql\n\nselect substr( Date, 1, 7 ) as YearMonth, count(*) as Count\nfrom exercise\ngroup by substr( Date, 1, 7 )\norder by substr( Date, 1, 7 ) desc\nlimit 6\n",
-      "dateUpdated": "2017-01-11T13:36:15+0400",
+      "user": "anonymous",
+      "dateUpdated": "2017-03-07T11:40:29+0400",
       "config": {
         "colWidth": 4,
         "editorMode": "ace/mode/sql",
         "editorHide": false,
         "title": true,
-        "graph": {
-          "mode": "multiBarChart",
-          "height": 300,
-          "optionOpen": false,
-          "keys": [
-            {
-              "name": "YearMonth",
-              "index": 0,
-              "aggr": "sum"
+        "results": [
+          {
+            "graph": {
+              "mode": "multiBarChart",
+              "height": 300,
+              "optionOpen": false,
+              "keys": [
+                {
+                  "name": "YearMonth",
+                  "index": 0,
+                  "aggr": "sum"
+                }
+              ],
+              "values": [
+                {
+                  "name": "Count",
+                  "index": 1,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "scatter": {
+                "xAxis": {
+                  "name": "YearMonth",
+                  "index": 0,
+                  "aggr": "sum"
+                }
+              },
+              "forceY": true
             }
-          ],
-          "values": [
-            {
-              "name": "Count",
-              "index": 1,
-              "aggr": "sum"
-            }
-          ],
-          "groups": [],
-          "scatter": {
-            "xAxis": {
-              "name": "YearMonth",
-              "index": 0,
-              "aggr": "sum"
-            }
-          },
-          "forceY": true
-        },
-        "enabled": true
+          }
+        ],
+        "enabled": true,
+        "editorSetting": {
+          "language": "sql"
+        }
       },
       "settings": {
         "params": {},
         "forms": {}
       },
-      "jobName": "paragraph_1482501368117_1233017609",
-      "id": "20161222-213942_1602252336",
-      "result": {
+      "results": {
         "code": "SUCCESS",
-        "type": "TABLE",
-        "msg": "YearMonth\tCount\n2016-12\t11\n2016-11\t18\n2016-10\t14\n2016-09\t10\n",
-        "comment": "",
-        "msgTable": [
-          [
-            {
-              "key": "Count",
-              "value": "2016-12"
-            },
-            {
-              "key": "Count",
-              "value": "11"
-            }
-          ],
-          [
-            {
-              "value": "2016-11"
-            },
-            {
-              "value": "18"
-            }
-          ],
-          [
-            {
-              "value": "2016-10"
-            },
-            {
-              "value": "14"
-            }
-          ],
-          [
-            {
-              "value": "2016-09"
-            },
-            {
-              "value": "10"
-            }
-          ]
-        ],
-        "columnNames": [
+        "msg": [
           {
-            "name": "YearMonth",
-            "index": 0,
-            "aggr": "sum"
-          },
-          {
-            "name": "Count",
-            "index": 1,
-            "aggr": "sum"
+            "type": "TABLE",
+            "data": "YearMonth\tCount\n2016-12\t11\n2016-11\t18\n2016-10\t14\n2016-09\t10\n"
           }
-        ],
-        "rows": [
-          [
-            "2016-12",
-            "11"
-          ],
-          [
-            "2016-11",
-            "18"
-          ],
-          [
-            "2016-10",
-            "14"
-          ],
-          [
-            "2016-09",
-            "10"
-          ]
         ]
       },
-      "dateCreated": "2016-12-23T05:56:08+0400",
-      "dateStarted": "2017-01-11T13:36:21+0400",
-      "dateFinished": "2017-01-11T13:36:22+0400",
+      "apps": [],
+      "jobName": "paragraph_1488447972145_1606073823",
+      "id": "20161222-213942_1602252336",
+      "dateCreated": "2017-03-02T13:46:12+0400",
+      "dateStarted": "2017-03-07T11:40:43+0400",
+      "dateFinished": "2017-03-07T11:40:45+0400",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:15239"
+      "$$hashKey": "object:12352"
     },
     {
       "text": "",
-      "dateUpdated": "2017-01-11T13:36:15+0400",
+      "user": "anonymous",
+      "dateUpdated": "2017-03-02T13:46:24+0400",
       "config": {
         "colWidth": 12,
         "editorMode": "ace/mode/scala",
-        "graph": {
-          "mode": "table",
-          "height": 300,
-          "optionOpen": false,
-          "keys": [],
-          "values": [],
-          "groups": [],
-          "scatter": {}
-        },
-        "enabled": true
+        "results": [],
+        "enabled": true,
+        "editorSetting": {
+          "language": "scala"
+        }
       },
       "settings": {
         "params": {},
         "forms": {}
       },
-      "jobName": "paragraph_1482501368117_1233017609",
-      "id": "20161222-215030_659201960",
-      "result": {
+      "results": {
         "code": "SUCCESS",
-        "type": "TEXT",
-        "msg": ""
+        "msg": []
       },
-      "dateCreated": "2016-12-23T05:56:08+0400",
-      "dateStarted": "2017-01-11T13:36:21+0400",
-      "dateFinished": "2017-01-11T13:36:22+0400",
+      "apps": [],
+      "jobName": "paragraph_1488447972146_1607228069",
+      "id": "20161222-215030_659201960",
+      "dateCreated": "2017-03-02T13:46:12+0400",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:15240"
+      "$$hashKey": "object:12353"
     }
   ],
   "name": "Exercise Log",
-  "id": "2C4P46H8U",
+  "id": "2CCWZ9RX9",
   "angularObjects": {
-    "2C1VPCX6D:shared_process": [],
-    "2BY59RJET:shared_process": [],
-    "2C2TGG5MU:shared_process": [],
-    "2BZQ1338A:shared_process": [],
-    "2C28V2U22:shared_process": [],
-    "2C1WRMG2T:shared_process": [],
-    "2BYZ5UE27:shared_process": [],
-    "2C16TWAX4:shared_process": [],
-    "2C19YMA8R:shared_process": [],
-    "2BZNHUBAU:shared_process": [],
-    "2C19KCTR4:shared_process": [],
-    "2C2KDTVPV:shared_process": [],
-    "2BZMVDFS8:shared_process": [],
-    "2C1VXZVPN:shared_process": [],
-    "2BYWBEBMS:shared_process": [
+    "2CCYF6QMT:shared_process": [],
+    "2CAAJYJRX:shared_process": [],
+    "2CD4PQQXF:shared_process": [],
+    "2CBTJ2D1J:shared_process": [],
+    "2CCRPEEVZ:shared_process": [
       {
         "name": "minDate",
         "object": "2016-09-15",
-        "noteId": "2C4P46H8U"
+        "noteId": "2CCWZ9RX9"
       },
       {
         "name": "exCount",
         "object": "53",
-        "noteId": "2C4P46H8U"
+        "noteId": "2CCWZ9RX9"
       },
       {
         "name": "maxDate",
         "object": "2016-12-22",
-        "noteId": "2C4P46H8U"
+        "noteId": "2CCWZ9RX9"
       }
     ],
-    "2BYD14W5B:shared_process": [],
-    "2BYKCWJ97:shared_process": [],
-    "2C1V5DZES:shared_process": []
+    "2C9JC9CYM:shared_process": [],
+    "2CA5WN5UR:shared_process": [],
+    "2CBY7Q4JR:shared_process": [],
+    "2CB8A2B22:shared_process": [],
+    "2CCJ362S1:shared_process": [],
+    "2CAGWHXMA:shared_process": [],
+    "2CAKSS63W:shared_process": [],
+    "2CCHP1JSB:shared_process": [],
+    "2CD39AQSC:shared_process": [],
+    "2C991FNM8:shared_process": [],
+    "2C9JZ31PM:shared_process": [],
+    "2CAEQ6AN4:shared_process": [],
+    "2C9KD3W1D:shared_process": [],
+    "2CAMUKNGT:shared_process": []
   },
   "config": {
-    "looknfeel": "default"
+    "looknfeel": "default",
+    "personalizedMode": "false"
   },
   "info": {}
 }
